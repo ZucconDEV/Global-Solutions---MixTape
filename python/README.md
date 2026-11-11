@@ -72,6 +72,6 @@ A aplicação ainda não recebe automaticamente os dados do Arduino. Os limites 
 -Integrantes
 
 - Rafael De Oliveira Santos Zuccon — 575995
-- Gabriel Souza Bore De Carvalho — RM
+- Gabriel Souza Bore De Carvalho — 576428
 
 **FIAP — Global Solution 2026.2**
