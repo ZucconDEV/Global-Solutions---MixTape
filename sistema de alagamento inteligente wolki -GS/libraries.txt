@@ -1,8 +1,0 @@
-# Bibliotecas usadas na simulacao Wokwi - MIXTAPE AlertaSubsolo
-# Se o Wokwi reclamar de alguma, adicione pelo botao "Library Manager"
-RTClib
-U8g2
-DHT sensor library
-Adafruit Unified Sensor
-Adafruit NeoPixel
-Adafruit BusIO
