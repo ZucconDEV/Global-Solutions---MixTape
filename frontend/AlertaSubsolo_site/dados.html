@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlertaSubsolo — Dados ao vivo</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- CSS original do Rafael + acrescimos da nossa parte -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_dados.css">
+</head>
+
+<body>
+    <header>
+        <h1>AlertaSubsolo</h1>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="#ao-vivo">Dados ao vivo</a>
+            <a href="#historico">Histórico</a>
+            <a href="#hardware">Prototipação</a>
+            <a href="#manual">Manual de uso</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="apresentacao">
+            <h2>Dados ao vivo da maquete</h2>
+            <p>Esta página lê, direto do banco de dados, o que a maquete física está medindo agora
+               e o histórico das últimas 24 horas.</p>
+        </div>
+
+        <!-- ============ DADOS AO VIVO ============ -->
+        <section id="ao-vivo">
+            <h2>Situação agora</h2>
+
+            <div class="indicadores">
+                <div class="cartao">
+                    <h3>Reservatório (garrafa)</h3>
+                    <p class="valor" id="dGarrafa">--</p>
+                    <p class="detalhe">nível de água</p>
+                </div>
+                <div class="cartao">
+                    <h3>Subsolo (estacionamento)</h3>
+                    <p class="valor" id="dSubsolo">--</p>
+                    <p class="detalhe">nível de água</p>
+                </div>
+                <div class="cartao">
+                    <h3>Temperatura</h3>
+                    <p class="valor" id="dTemp">--</p>
+                    <p class="detalhe">sensor DHT11</p>
+                </div>
+                <div class="cartao">
+                    <h3>Status</h3>
+                    <p class="valor" id="dStatus">--</p>
+                    <p class="detalhe">Chuva: <span id="dChuva">--</span> · Solo: <span id="dSolo">--</span></p>
+                </div>
+            </div>
+
+            <p class="dados-quando" id="dQuando">última leitura: --</p>
+
+            <div style="margin-top:18px;">
+                <button type="button" id="btnSincronizar" class="botao-dados">Sincronizar com o banco</button>
+                <p class="dados-msg" id="dadosMensagem">Clique para buscar os dados mais recentes.</p>
+            </div>
+        </section>
+
+        <!-- ============ HISTORICO ============ -->
+        <section id="historico">
+            <h2>Histórico das últimas 24 horas</h2>
+            <p>Total de registros no período: <strong id="dTotal">--</strong>. A tabela atualiza
+               sozinha a cada 20 segundos e também pelo botão acima.</p>
+
+            <div class="rolagem-dados">
+                <table class="dados">
+                    <thead>
+                        <tr>
+                            <th>Quando</th>
+                            <th>Status</th>
+                            <th>Garrafa (cm)</th>
+                            <th>Subsolo (cm)</th>
+                            <th>Temp. (°C)</th>
+                            <th>Chuva</th>
+                            <th>Bomba dreno</th>
+                            <th>Bomba captação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dadosCorpo">
+                        <tr><td class="dados-vazio" colspan="8">Carregando…</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ============ PROTOTIPACAO DE HARDWARE ============ -->
+        <section id="hardware">
+            <h2>Nossa prototipação de hardware</h2>
+            <div class="maquete-bloco">
+                <div class="maquete-texto">
+                    <p>A maquete é um prédio de dois andares em acrílico: o subsolo (estacionamento, com
+                       um carro) embaixo e o reservatório em cima. Toda a decisão acontece na própria
+                       placa, sem depender da internet.</p>
+                    <p>Peças principais:</p>
+                    <ul class="lista-pecas">
+                        <li><strong>Arduino Uno R4 WiFi</strong> — placa final, envia as leituras à nuvem;</li>
+                        <li><strong>Uno R3</strong> — placa de desenvolvimento e testes;</li>
+                        <li><strong>2× HC-SR04</strong> — nível de água do subsolo e do reservatório;</li>
+                        <li><strong>DHT11, sensor de chuva e sensor capacitivo de solo</strong> — ambiente;</li>
+                        <li><strong>RTC DS3231</strong> — data e hora de cada leitura;</li>
+                        <li><strong>Display OLED</strong> — painel local da situação;</li>
+                        <li><strong>2 relés + mini-bombas</strong> (dreno e captação), com um transistor
+                            <strong>BC547</strong> reforçando o acionamento;</li>
+                        <li><strong>Fita NeoPixel</strong> — rota de fuga: verde (livre), azul (atenção),
+                            vermelho (perigo);</li>
+                        <li><strong>Supabase</strong> — banco de dados que esta página consulta.</li>
+                    </ul>
+                </div>
+                <figure class="maquete-foto">
+                    <img src="maquete.jpg" alt="Maquete física do AlertaSubsolo em funcionamento">
+                    <figcaption>Maquete em funcionamento (foto provisória — trocar pela final).</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- ============ MANUAL DE USO ============ -->
+        <section id="manual">
+            <h2>Manual de uso</h2>
+            <ol class="manual">
+                <li>Ligue a placa na energia. O sistema inicia sozinho e funciona mesmo sem internet.</li>
+                <li>O display OLED mostra o nível do reservatório, do subsolo, a temperatura e a situação
+                    (NORMAL, ALERTA ou CRÍTICO).</li>
+                <li>A fita de LED aponta a saída: verde é caminho livre, azul é atenção e vermelho é perigo.</li>
+                <li>O botão de toque troca a trava das bombas (5, 10 ou 20 s). Segure por 2 s para ligar o
+                    modo manual de teste das bombas na apresentação.</li>
+                <li>Com Wi-Fi, cada leitura vai para o banco. Abra esta página e clique em
+                    <em>“Sincronizar com o banco”</em> para ver os dados e o histórico de qualquer lugar.</li>
+            </ol>
+        </section>
+    </main>
+
+    <footer>
+        <p>AlertaSubsolo — Global Solution 2026.2 — FIAP</p>
+        <p>Rafael Zuccon (RM 575995) e Gabriel Souza Bore de Carvalho (RM 576428)</p>
+    </footer>
+
+    <!-- config.js tem a URL e a chave do banco; o javascript_dados.js usa
+         o que estiver nele (e tem o projeto alertasubsolo como reserva) -->
+    <script src="config.js"></script>
+    <script src="javascript_dados.js"></script>
+</body>
+</html>

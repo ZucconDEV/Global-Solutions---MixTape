@@ -1,0 +1,51 @@
+================================================================
+ALERTASUBSOLO - SITE + BANCO DE DADOS
+Global Solution 2026.2 - FIAP - Grupo MIXTAPE
+Rafael Zuccon (RM 575995) e Gabriel Souza Bore de Carvalho (RM 576428)
+================================================================
+
+O QUE TEM NESTA PASTA
+----------------------------------------------------------------
+index.html          Site do Rafael (intacto; so foi adicionado 1 link
+                    "Dados ao vivo" no menu, nada mais mudou).
+style.css           CSS do Rafael (sem nenhuma alteracao).
+imagens/            Imagem usada pelo index (alagamento.png).
+
+dados.html          Nossa pagina: dados ao vivo + historico das 24h +
+                    botao de sincronizar + prototipacao + manual de uso.
+javascript_dados.js Le o banco (Supabase) e preenche a pagina.
+style_dados.css     So os acrescimos da nossa parte (usa o CSS do Rafael).
+maquete.jpg         Foto da maquete (troque pela final quando quiser).
+config.js           URL e chave PUBLICA do banco (edite so aqui).
+
+banco_de_dados/
+  01_criar_tabela.sql     Cria a tabela "leituras" e as permissoes.
+  02_permitir_apagar.sql  Libera apagar registros (opcional).
+
+
+COMO DEIXAR O BANCO FUNCIONAL (uma vez so)
+----------------------------------------------------------------
+1. Entre no projeto no https://supabase.com (projeto alertasubsolo).
+2. Menu SQL Editor -> New query.
+3. Cole o conteudo de 01_criar_tabela.sql e clique em Run.
+4. (Opcional) Faca o mesmo com 02_permitir_apagar.sql.
+A URL e a chave publica ja estao no config.js.
+
+
+COMO VER O SITE
+----------------------------------------------------------------
+- Abra o index.html no navegador (pagina do Rafael).
+- No menu, clique em "Dados ao vivo" para abrir o dados.html.
+- O dados.html mostra a ultima leitura e o historico das 24h, e
+  atualiza sozinho a cada 20s. O botao "Sincronizar com o banco"
+  busca na hora.
+- So aparece dado depois que o Arduino (ou a pagina de teste) gravar
+  alguma leitura no banco.
+
+
+PUBLICAR (opcional)
+----------------------------------------------------------------
+Pode subir esta pasta inteira no Netlify, GitHub Pages ou Vercel.
+A chave do config.js e PUBLICA (anon) e pode ir para o GitHub; a
+seguranca fica nas permissoes (RLS) do 01_criar_tabela.sql.
+NAO suba a chave "secret"/"service_role" em lugar nenhum.

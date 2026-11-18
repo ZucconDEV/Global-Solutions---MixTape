@@ -1,0 +1,98 @@
+/* ================================================================
+   AlertaSubsolo - acrescimos da parte do Gabriel (dados ao vivo).
+   Mantem o visual do Rafael: usa as mesmas variaveis (--azul etc.)
+   e as mesmas caixas. So acrescenta o que ele ainda nao tinha:
+   botao, tabela de historico, foto da maquete e manual.
+   ================================================================ */
+
+/* ---- status NORMAL em verde (ALERTA/CRITICO ja existem no style.css) ---- */
+.valor.normal-ok { color: #16a34a; font-size: 28px; font-weight: 700; }
+
+/* ---- botao de sincronizar ---- */
+.botao-dados {
+  background-color: var(--azul);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 22px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+.botao-dados:hover { filter: brightness(0.93); }
+.botao-dados:disabled { opacity: 0.6; cursor: default; }
+
+.dados-msg { color: var(--cinza); font-size: 14px; margin-top: 12px; }
+.dados-msg.ok { color: #16a34a; }
+.dados-msg.erro { color: #dc2626; }
+
+.dados-quando { color: var(--cinza); font-size: 13px; margin-top: 6px; }
+
+/* ---- tabela de historico ---- */
+.rolagem-dados { max-height: 420px; overflow: auto; margin-top: 16px; border-radius: 10px; }
+table.dados {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  background: var(--branco);
+}
+table.dados th, table.dados td {
+  padding: 10px 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+table.dados thead th {
+  position: sticky; top: 0;
+  background: #e0edff;
+  color: #1e3a8a;
+  font-weight: 600;
+}
+table.dados tbody tr { border-top: 1px solid #e2e8f0; }
+table.dados tbody tr:nth-child(even) { background: #f8fafc; }
+.st-ALERTA  { color: #d97706; font-weight: 700; }
+.st-CRITICO { color: #dc2626; font-weight: 700; }
+.st-NORMAL  { color: #16a34a; font-weight: 700; }
+.dados-vazio { text-align: center; color: var(--cinza); padding: 24px; }
+
+/* ---- bloco da prototipacao com a foto da maquete ao lado ---- */
+.maquete-bloco { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+.maquete-texto { flex: 1; min-width: 260px; }
+.maquete-foto {
+  flex: 1; min-width: 260px;
+  max-width: 460px;
+}
+.maquete-foto img {
+  width: 100%; height: auto;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  display: block;
+}
+.maquete-foto figcaption {
+  color: var(--cinza); font-size: 13px; text-align: center; margin-top: 8px;
+}
+.lista-pecas { line-height: 1.8; padding-left: 18px; margin: 0; }
+
+/* ---- manual de uso ---- */
+.manual { counter-reset: passo; padding-left: 0; list-style: none; }
+.manual li {
+  position: relative;
+  padding: 10px 0 10px 44px;
+  line-height: 1.5;
+  border-bottom: 1px solid #eef2f7;
+}
+.manual li::before {
+  counter-increment: passo;
+  content: counter(passo);
+  position: absolute; left: 0; top: 8px;
+  width: 28px; height: 28px;
+  background: var(--azul); color: #fff;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .maquete-bloco { flex-direction: column; }
+  table.dados { font-size: 13px; }
+}
